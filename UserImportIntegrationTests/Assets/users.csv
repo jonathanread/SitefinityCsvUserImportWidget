@@ -1,0 +1,6 @@
+Email,FirstName,LastName,Role,Password,UserName
+test@test.com,Test,Test,UserRole,password,
+test1@test.com,Test1,Test1,UserRole;RoleTwo,password,
+test2@test.com,Test2,Test2,UserRole,password,
+test3@test.com,Test3,Test3,UserRole;RoleThree,password,
+test5@test.com,Test5,Test5,UserRole,password,

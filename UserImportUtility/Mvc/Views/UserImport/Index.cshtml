@@ -1,0 +1,17 @@
+@model UserImportUtility.Mvc.Models.UserImportModel
+
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+
+<div>
+	@using (Html.BeginFormSitefinity("UploadUsers", "UserImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+		<div class="form-group">
+			<label>Csv file to upload</label>
+			<input type="file" id="FileUpload" name="FileUpload" />
+		</div>
+	<button type="submit">Import users</button>
+	}
+	@Model.Message
+</div>

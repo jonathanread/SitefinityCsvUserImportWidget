@@ -1,0 +1,30 @@
+{
+  "name": "odata-openapi",
+  "version": "0.0.0",
+  "description": "Convert OData CSDL XML or CSDL JSON to OpenAPI",
+  "homepage": "https://github.com/oasis-tcs/odata-openapi/blob/master/lib/README.md",
+  "bugs": "https://github.com/oasis-tcs/odata-openapi/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oasis-tcs/odata-openapi.git"
+  },
+  "files": [
+    "lib/*"
+  ],
+  "bin": {
+    "odata-openapi3": "lib/cli.js"
+  },
+  "main": "lib/csdl2openapi.js",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "odata-csdl": "oasis-tcs/odata-csdl-schemas"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE.md"
+}
