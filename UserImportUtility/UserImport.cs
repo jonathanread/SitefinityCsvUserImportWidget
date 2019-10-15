@@ -25,6 +25,7 @@ namespace UserImportUtility
 
 			UserManager userManager = UserManager.GetManager(null, transactionName);
 			UserProfileManager profileManager = UserProfileManager.GetManager(null, transactionName);
+			RoleManager roleManager = RoleManager.GetManager(null, transactionName);
 			List<UserCsvRecord> failedImportList = new List<UserCsvRecord>();
 			using (var reader = new StreamReader(fileUpload))
 			{
@@ -49,7 +50,7 @@ namespace UserImportUtility
 										sfProfile.FirstName = item.FirstName;
 										sfProfile.LastName = item.LastName;
 										profileManager.RecompileItemUrls(sfProfile);
-										AddUserToRoles(user, item.Role.Split(';').ToList());
+										AddUserToRoles(user, item.Role.Split(';').ToList(), roleManager);
 									}
 								}
 								else
@@ -83,23 +84,19 @@ namespace UserImportUtility
 			return imported;
 		}
 
-		public Role CreateRole(string roleName)
+		public Role CreateRole(string roleName, RoleManager roleManager)
 		{
-			RoleManager roleManager = RoleManager.GetManager();
 			Role role = null;
 
 			if (roleManager.GetRoles().Where(r => r.Name == roleName).FirstOrDefault() == null)
 			{
 				role = roleManager.CreateRole(roleName);
 			}
-
-			roleManager.SaveChanges();
 			return role;
 		}
 
-		public void AddUserToRoles(User user, List<string> rolesToAdd)
+		public void AddUserToRoles(User user, List<string> rolesToAdd, RoleManager roleManager)
 		{
-			RoleManager roleManager = RoleManager.GetManager(SecurityConstants.ApplicationRolesProviderName);
 			roleManager.Provider.SuppressSecurityChecks = true;
 
 			if (user != null)
@@ -113,13 +110,12 @@ namespace UserImportUtility
 					}
 					else
 					{
-						Role role = CreateRole(roleName);
+						Role role = CreateRole(roleName, roleManager);
 						roleManager.AddUserToRole(user, role);
 					}
 				}
 			}
 
-			roleManager.SaveChanges();
 			roleManager.Provider.SuppressSecurityChecks = false;
 		}
 	}
